@@ -22,7 +22,6 @@ print("\n")
 print("=============================================")
 print("\n")
 
-
 -- get the type of a function
 print("The type of the function ", type(max))
 
