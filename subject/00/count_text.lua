@@ -10,6 +10,10 @@ local function is_alphabet(char)
     end
 end
 
+--[[
+lua 테이블의 속성을 알아야함
+--]]
+
 -- return 될 변수가 local로 선언되어 있으면 결과와 내부동작은 어떻게 되는가?
 local function init_each_character_count_table()
     local each_character_count_table = {}
@@ -50,6 +54,10 @@ function main()
     -- segfault라거나 접근하면 안되는 메모리에 접근했다거니 등등
     local each_character_count_table = init_each_character_count_table()
 
+    -- #TODO: moses 찾아볼것
+    -- low dash == __
+    -- 유틸리티 성격의 라이브러리 함수형으로 쓸 수 있음
+    -- 
     local file = io.open(arg[1], "r")
     if file then
         local line = file:read("*line")
@@ -94,7 +102,14 @@ end
     #TODO
     - 직접 호출한 경우에만 동작하게 하는 것이 나은가?
     - 인자로 텍스트 파일을 받아야 하므로 의미가 있을 것인가? 추가 확인 필요
+- arg[0]
+  - 자기 자신
 --]]
 if arg and arg[0] == "count_text.lua" then
     main()
 end
+-- main()
+
+
+-- if __name__ == "__main__":
+--     main()

@@ -217,7 +217,7 @@ function is_prime(num)
     return true
 end
 
-local num = 1
+local num = 2
 repeat
     -- print("is_prime(", num, ") : ", is_prime(num))
     if (is_prime(num)) then
@@ -226,6 +226,32 @@ repeat
     num = num + 1
     -- print("num is ", num)
 until num > 25
+
+
+--[[
+
+i = 2
+repeat 
+do
+   j = 2
+   repeat 
+   do
+      if(i%j == 0)
+      then
+         break
+      end
+      j = j + 1
+   end
+   until j > (i/j)
+   if(j > (i/j))
+   then
+      print(i, " is prime")
+   end
+   i = i + 1
+end
+until i > 25
+
+--]]
 
 
 
