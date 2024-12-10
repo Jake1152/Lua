@@ -1,0 +1,65 @@
+This first edition was written for Lua 5.0. While still largely relevant for later versions, there are some differences.
+The fourth edition targets Lua 5.3 and is available at Amazon and other bookstores.
+By buying the book, you also help to support the Lua project.
+
+Previous	Programming in Lua	Next
+Part II. Tables and Objects Chapter 12. Data Files and Persistence	
+12 – Data Files and Persistence
+When dealing with data files, it is usually much easier to write the data than to read them back. When we write a file, we have full control of what is going on. When we read a file, on the other hand, we do not know what to expect. Besides all kinds of data that a correct file may contain, a robust program should also handle bad files gracefully. Because of that, coding robust input routines is always difficult.
+
+As we saw in the example of Section 10.1, table constructors provide an interesting alternative for file formats. With a little extra work when writing data, reading becomes trivial. The technique is to write our data file as Lua code that, when runs, builds the data into the program. With table constructors, these chunks can look remarkably like a plain data file.
+
+As usual, let us see an example to make things clear. If our data file is in a predefined format, such as CSV (Comma-Separated Values), we have little choice. (In Chapter 20, we will see how to read CSV in Lua.) However, if we are going to create the file for later use, we can use Lua constructors as our format, instead of CSV. In this format, we represent each data record as a Lua constructor. Instead of writing something like
+
+    Donald E. Knuth,Literate Programming,CSLI,1992
+    Jon Bentley,More Programming Pearls,Addison-Wesley,1990
+in our data file, we write
+    Entry{"Donald E. Knuth",
+          "Literate Programming",
+          "CSLI",
+          1992}
+    
+    Entry{"Jon Bentley",
+          "More Programming Pearls",
+          "Addison-Wesley",
+          1990}
+Remember that Entry{...} is the same as Entry({...}), that is, a call to function Entry with a table as its single argument. Therefore, this previous piece of data is a Lua program. To read this file, we only need to run it, with a sensible definition for Entry. For instance, the following program counts the number of entries in a data file:
+    local count = 0
+    function Entry (b) count = count + 1 end
+    dofile("data")
+    print("number of entries: " .. count)
+The next program collects in a set the names of all authors found in the file, and then prints them. (The author's name is the first field in each entry; so, if b is an entry value, b[1] is the author.)
+    local authors = {}      -- a set to collect authors
+    function Entry (b) authors[b[1]] = true end
+    dofile("data")
+    for name in pairs(authors) do print(name) end
+Notice the event-driven approach in these program fragments: The Entry function acts as a callback function, which is called during the dofile for each entry in the data file.
+When file size is not a big concern, we can use name-value pairs for our representation:
+
+    Entry{
+      author = "Donald E. Knuth",
+      title = "Literate Programming",
+      publisher = "CSLI",
+      year = 1992
+    }
+    
+    Entry{
+      author = "Jon Bentley",
+      title = "More Programming Pearls",
+      publisher = "Addison-Wesley",
+      year = 1990
+    }
+(If this format reminds you of BibTeX, it is not a coincidence. BibTeX was one of the inspirations for the constructor syntax in Lua.) This format is what we call a self-describing data format, because each piece of data has attached to it a short description of its meaning. Self-describing data are more readable (by humans, at least) than CSV or other compact notations; they are easy to edit by hand, when necessary; and they allow us to make small modifications without having to change the data file. For instance, if we add a new field we need only a small change in the reading program, so that it supplies a default value when the field is absent.
+With the name-value format, our program to collect authors becomes
+
+    local authors = {}      -- a set to collect authors
+    function Entry (b) authors[b.author] = true end
+    dofile("data")
+    for name in pairs(authors) do print(name) end
+Now the order of fields is irrelevant. Even if some entries do not have an author, we only have to change Entry:
+    function Entry (b)
+      if b.author then authors[b.author] = true end
+    end
+Lua not only runs fast, but it also compiles fast. For instance, the above program for listing authors runs in less than one second for 2 MB of data. Again, this is not by chance. Data description has been one of the main applications of Lua since its creation and we took great care to make its compiler fast for large chunks.
+
+Copyright © 2003–2004 Roberto Ierusalimschy. All rights reserved.	Next
