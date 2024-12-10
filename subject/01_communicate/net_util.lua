@@ -14,7 +14,6 @@ local server = function(port)
 
     -- local ip = assert(udp_server.dns.toip(host))
     -- local udp = assert(udp_server.udp())
-
     local ip = assert(socket.dns.toip(host))
     assert(udp_server:settimeout(0))  -- Non-blocking mode
     assert(udp_server:setsockname(ip, port))  -- 지정된 포트에서 서버 시작
@@ -35,17 +34,12 @@ local client = function(port)
     
 end
 
-
 local main = function()
     -- # 0. validate arguemnt 
     if (validate_arugment() == false) then 
         return 1
     end
-
     -- # 1. server, client 분기
-    -- if (server) then
-    -- else
-    -- end
     if (arg[1] == "-l") then
         print("listen option!")
         local port = arg[3]
@@ -55,7 +49,6 @@ local main = function()
         local port = arg[2]
         client(port)
     end
-
 end
 
 main()

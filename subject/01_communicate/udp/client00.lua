@@ -1,6 +1,6 @@
 local socket = require("socket")
-
-local udp = socket.udp()
+local host = "localhost"
+local udp = assert(socket.udp())
 
 -- udp:sendto("Hello UDP server", "localhost", 4242)
 udp:sendto("안녕하세요 UDP 서버!", "localhost", 4242)

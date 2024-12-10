@@ -1,6 +1,6 @@
 NAME = lnc
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I/usr/local/include/luajit-2.1 -L/usr/local/lib -lluajit-5.1 
+CFLAGS = -Wall -Wextra -Werror -I/usr/local/include/luajit-2.1 -L/usr/local/lib -lluajit
 RM = rm -f
 
 SRCS = main.c
