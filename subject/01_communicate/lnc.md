@@ -9,7 +9,11 @@ netcat 과 유사한 기능. [NETCAT](https://ko.wikipedia.org/wiki/Netcat)
 ```
     lnc -l -u 12006
 ```
-수신받은 데이터는 stdout 에 출력
+- 수신받은 데이터는 stdout 에 출력
+- 프로그램 종료시 아래와 같은 수치를 표기
+    - 수신받은 총 건수 (received event count)
+    - 수신받은 총 바이트수 (received bytes)
+- 입력 인자로 IP 추가
 
 
 ##### UDP 12006 포트로 송신
