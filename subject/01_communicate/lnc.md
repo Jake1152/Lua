@@ -21,6 +21,12 @@ netcat 과 유사한 기능. [NETCAT](https://ko.wikipedia.org/wiki/Netcat)
 ```
 'ddd', 'aaaaa' 등의 stdin 값을 UDP 12006 포트로 송신.
 
+# 의문점
+1. ip는 우선 localhost인 것을 전제로 하게 되는지
+2. ip도 추후에 설정하게 되는지
+=> lua버젼의 nc이므로 추가될 것이라 생각
+
+
 # 문제이해
 - udp 통신만 되는 nc와 같은 프로그램을 만든다.
 - lnc -l -u [PORT] 같은 입력만 가능하다
